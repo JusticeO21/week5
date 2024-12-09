@@ -1,8 +1,3 @@
-// import StageNumber from './components/Atoms/StageNumber/StageNumber';
-// import StageLabel from './components/Atoms/StageLabel/StageLabel';
-// import Stage from './components/Molecules/Stage/Stage';
-// import Header from './components/Atoms/Header/Header';
-import Form from './components/Organisms/PersonalInfoForm/PersonalInfoForm';
 import DashBoardPreview from './components/Templates/DashboardPreview/DashBoardPreview';
 import styles from "./App.module.css";
 import PlanForm from './components/Organisms/PlanForm/PlanForm';

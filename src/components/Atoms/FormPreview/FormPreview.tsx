@@ -1,7 +1,7 @@
-import React, { ReactNode } from 'react'
+import React from 'react'
 
 type FormPreviewProps = {
-    children:ReactNode
+    children:React.ReactNode
 }
 
 function FormPreview({children} : FormPreviewProps) {
