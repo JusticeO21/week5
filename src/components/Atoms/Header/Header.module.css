@@ -1,0 +1,15 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+}
+
+.container h1{
+    font-size: 2.5rem;
+    color:var(--header-color)
+}
+
+.container p{
+    font-size: 1.4rem;
+    color:grey;
+}

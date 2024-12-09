@@ -1,0 +1,125 @@
+ .checkbox_description{
+    display: none;
+}
+
+.add_ons_price{
+    display: none;
+}
+
+.input_container{
+    width:100%;
+    padding:0.5rem 0;  
+    position: relative;  
+}
+
+.input_container label{
+    display: block;
+    padding: 1rem 0;
+    font-size: 1.6rem;
+    text-transform: capitalize;
+}
+
+.input_field{
+    padding: 1rem;
+    font-size: 1.8rem;
+    border-radius: 0.8rem;
+    border:1px solid #D6D9E6;
+    font-weight:600;
+    width:100%;
+    outline: none;
+}
+
+.input_field:focus{
+    border:1px solid #483EFF ;
+}
+
+.input_field::placeholder{
+    color: #D6D9E6;
+    font-size: 1.5rem;
+}
+
+.active{
+   border:1px solid #483EFF ;
+}
+
+.checkbox{
+    position: relative;
+    border:1px solid #D6D9E6;
+    height: 4.5rem;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    border-radius: 0.8rem;
+    padding: 1rem;
+    gap: 2.5rem;
+    height: auto;
+    background: transparent;
+}
+
+.checkbox:focus-within{
+    border:1px solid #483EFF ;
+}
+
+.checkbox:current{
+    border:1px solid #483EFF ;
+}
+
+.checkbox .error_field{
+
+}
+
+.checkbox .error_message{
+    display: none;
+}
+
+.checkbox .add_ons_price{
+    display: block;
+    position: absolute;
+    right: 2.5rem;
+    color: #483EFF;
+    font-size: 1.5rem;
+}
+
+.checkbox input{
+    display:block;
+    width: unset;
+    width: 2rem;
+    height: 2rem;
+}
+
+input:checked .checkbox{
+    border: 1px solid #483EFF;
+     background: #F8F9FF;
+     color:red;
+}
+
+.checkbox label{
+    display: block;
+    margin: unset;
+    padding: 1rem 0;
+}
+
+.checkbox .checkbox_description{
+    display: block;
+    color: grey;
+    font-size: 1.3rem;
+}
+
+.error_field{
+    border:1px solid #EE374A;
+}
+
+.error_message{
+    color: #EE374A;
+    font-size: 1.5rem;
+    position: absolute;
+    right: 0;
+    top: 2rem;
+}
+
+.checked{
+    border:1px solid #483EFF ;
+}

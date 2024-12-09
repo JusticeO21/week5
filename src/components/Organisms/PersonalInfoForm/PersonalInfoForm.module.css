@@ -1,0 +1,23 @@
+
+.buttons{
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    left: -2rem;
+    right: -2rem;
+    background: #fff;
+    padding: 2rem;
+    top: 100%;
+}
+
+@media (min-width:1000px){
+    .buttons{
+        position: absolute;
+        background: unset;
+        padding: 0;
+        left: 10rem;
+        right: 10rem;
+        top: unset;
+        bottom: 0;
+    }
+}

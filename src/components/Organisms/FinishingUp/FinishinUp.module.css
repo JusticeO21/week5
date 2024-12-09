@@ -1,0 +1,42 @@
+.selected_plan_container{
+    padding: 2rem 5rem;
+    border-radius: 0.8rem;
+    background-color: #F8F9FF;
+    margin-top: 3rem;
+}
+
+.total_container{
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem 5rem;
+    color: #9699AA;
+    font-size: 1.5rem;
+}
+
+.buttons{
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    left: -2rem;
+    right: -2rem;
+    background: #fff;
+    padding: 2rem;
+    top: 100%;
+}
+
+.total_cost{
+    color:#483EFF;
+    font-weight: 600;
+}
+
+@media (min-width:1000px){
+    .buttons{
+        position: absolute;
+        background: unset;
+        padding: 0;
+        left: 10rem;
+        right: 10rem;
+        top: unset;
+        bottom: 0;
+    }
+}

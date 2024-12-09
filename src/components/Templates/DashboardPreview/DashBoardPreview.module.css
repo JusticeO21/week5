@@ -1,0 +1,39 @@
+.container{
+    display: flex;
+    height: 100%;
+    width: 100%;
+    border-radius: 0.8rem;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    flex-direction: column;
+    background-color: #F8F8FF;
+}
+
+.formsContainer{
+     margin: 0 2rem;
+     background-color: #FFF;
+     border-radius: 0.8rem;
+     flex: unset;
+     z-index: 10;
+     padding: 3rem 2rem;
+     transform: translateY(-60px);
+}
+
+@media (min-width:1000px){
+    .container{
+        flex-direction: row;
+        padding: 2rem;
+        background-color: #FFF;
+        position: relative;
+        
+    }
+
+    .formsContainer{
+        flex: 3.8;
+        position: relative;
+        transform: unset;
+        z-index: unset;
+        padding: 5rem 10rem;
+        border-radius: 0;
+        background: unset;
+    }
+}

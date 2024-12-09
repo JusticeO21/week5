@@ -1,0 +1,49 @@
+.card_container{
+    border:1px solid var(--border-color);
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    border-radius: 0.8rem;
+    padding: 2rem;
+    width: 100%;
+}
+
+.card_content{
+    display: flex;
+    row-gap: 4rem;
+}
+
+.card_content h4{
+    font-size: 1.6rem;
+}
+
+.card_content p{
+    font-size: 1.3rem;
+    margin-top: 0.5rem;
+}
+
+.selected {
+    border:1.2px solid #483EFF
+}
+
+.isAYearPlan{
+    color: #022959;
+    font-weight: 500;
+}
+
+@media (min-width:768px){
+    .card_container{
+        height: 15rem;
+    }
+}
+
+@media (min-width:1000px){
+    .card_container{
+        padding:3rem;
+    height: auto;
+    width: 17rem;
+    }
+
+    .card_content{
+        row-gap: 2rem;
+        flex-direction: column;
+    }
+}

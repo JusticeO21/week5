@@ -1,0 +1,38 @@
+.container{
+    display: flex;
+    column-gap: 2rem;
+    margin: 2.5rem 0;
+    width: auto;
+    flex-direction: column;
+    width: 100%;
+    row-gap: 2rem;
+}
+
+.buttons{
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    left: -2rem;
+    right: -2rem;
+    background: #fff;
+    padding: 2rem;
+    top: 100%;
+}
+
+@media (min-width:1000px){
+    .container{
+    flex-direction: row;
+    column-gap: 2rem;
+    width: auto;
+    }
+
+     .buttons{
+        position: absolute;
+        background: unset;
+        padding: 0;
+        left: 10rem;
+        right: 10rem;
+        top: unset;
+        bottom: 0;
+    }
+}
