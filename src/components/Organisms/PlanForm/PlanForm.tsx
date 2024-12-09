@@ -2,7 +2,7 @@ import styles from './PlanForm.module.css';
 import Header from '../../Atoms/Header/Header';
 import Card from '../../Molecules/Card/Card';
 import Button from '../../Atoms/Button/Button';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import globalState from '../../../AppState/GlobalState';
 import useCustomNavigate from '../../../Hooks/UseNavigate';
 import ThemeSwitch from '../../Molecules/ThemeSwitch/ThemeSwitch';
@@ -61,7 +61,7 @@ function PlanForm() {
             handleCardClick("Advanced", duration ? 120 : 12);
           }}
         />
-        
+
         <Card
           iconSrc="/Images/icon-pro.svg"
           planName="Pro"

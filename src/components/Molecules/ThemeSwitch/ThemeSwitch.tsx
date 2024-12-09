@@ -1,7 +1,4 @@
-import { useState} from 'react';
 import styles from "./ThemeSwitch.module.css"
-import globalState from '../../../AppState/GlobalState';
-
 
 type ThemeSwitch = {
   theme: string;
