@@ -19,3 +19,16 @@ body{
     font-family: Ubuntu;
     height: 100%;
 }
+
+
+@media(min-width:1000px){
+    html{
+        font-size: 62%;
+    }
+}
+
+@media(min-width:1900px){
+    html{
+        font-size: 70%;
+    }
+}

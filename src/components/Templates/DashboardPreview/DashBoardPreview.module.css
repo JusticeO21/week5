@@ -5,10 +5,15 @@
     border-radius: 0.8rem;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     flex-direction: column;
-    background-color: #F8F8FF;
+    margin-bottom: 0;
 }
 
 .formsContainer{
+    height: 100%;
+    background-color: transparent;
+}
+
+.formContent{
      margin: 0 2rem;
      background-color: #FFF;
      border-radius: 0.8rem;
@@ -16,6 +21,8 @@
      z-index: 10;
      padding: 3rem 2rem;
      transform: translateY(-60px);
+     height: 100%;
+     padding-bottom: 0;
 }
 
 @media (min-width:1000px){
@@ -29,11 +36,20 @@
 
     .formsContainer{
         flex: 3.8;
-        position: relative;
-        transform: unset;
-        z-index: unset;
+        position: relative; 
         padding: 5rem 10rem;
         border-radius: 0;
         background: unset;
+        height: unset;
+        padding-top: 0.5rem;
+    }
+
+    .formContent{
+        transform: unset;
+        z-index: unset;
+        margin: unset;
+
     }
 }
+
+

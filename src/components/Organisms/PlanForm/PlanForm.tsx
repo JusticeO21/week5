@@ -6,11 +6,13 @@ import { useState } from 'react';
 import globalState from '../../../AppState/GlobalState';
 import useCustomNavigate from '../../../Hooks/UseNavigate';
 import ThemeSwitch from '../../Molecules/ThemeSwitch/ThemeSwitch';
+import useAppContext from '../../../Hooks/useAppContext';
 
 function PlanForm() {
   const { goTo } = useCustomNavigate();
   const [selectedPlan, setSelectedPlan] = useState<string>(globalState.getState("plan")?.["name"] || "");
   const [duration, setDuration] = useState<string>(globalState.getState("duration") || "");
+  const { updateStage } = useAppContext();
 
   function handleCardClick(plan: string, cost:number) {
     const storedplan = {
@@ -80,6 +82,9 @@ function PlanForm() {
           onClick={(e) => {
             e.preventDefault();
             goTo("/register");
+            updateStage(0);
+            globalState.setState("stage", 0);
+            globalState.storeData();
           }}
         />
 
@@ -89,6 +94,10 @@ function PlanForm() {
           onClick={(e) => {
             e.preventDefault();
             goTo("/register/add-ons");
+            updateStage(2);
+            globalState.setState("stage", 2);
+            globalState.storeData();
+
           }}
         />
       </span>

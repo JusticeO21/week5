@@ -1,7 +1,17 @@
 import styles from './ThankYou.module.css';
 import Icon from '../../Atoms/Icon/Icon';
+import { useEffect } from 'react';
+import useCustomNavigate from '../../../Hooks/UseNavigate';
+import globalState from '../../../AppState/GlobalState';
 
 function ThankYou() {
+  const { goTo } = useCustomNavigate();
+  useEffect(() => {
+    setTimeout(() => {
+      goTo("/")
+      globalState.clearState()
+    }, 5000)
+  }, []);
   return (
     <div className={styles.container}>
         <article className={styles.thank_you}>

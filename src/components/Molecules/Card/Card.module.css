@@ -8,7 +8,7 @@
 
 .card_content{
     display: flex;
-    row-gap: 4rem;
+    column-gap: 4rem;
 }
 
 .card_content h4{
@@ -37,7 +37,7 @@
 
 @media (min-width:1000px){
     .card_container{
-        padding:3rem;
+    padding:3rem;
     height: auto;
     width: 17rem;
     }

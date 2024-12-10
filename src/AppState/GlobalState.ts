@@ -1,15 +1,15 @@
-class GlobalStateManager {
+export class GlobalStateManager {
   private static instance: GlobalStateManager;
 
   private state: Record<string, any>;
 
-    private constructor() {
+  private constructor() {
       const storedData = localStorage.getItem('state');
         if (storedData) {
             this.state = JSON.parse(storedData)
         } else {
             this.state = {}
-        }
+      }
   }
 
   public static getInstance(): GlobalStateManager {
@@ -29,13 +29,13 @@ class GlobalStateManager {
 
   public clearState(): void {
     this.state = {};
+    localStorage.clear();
     }
-    
+  
     public storeData(): void{
       localStorage.setItem('state', JSON.stringify(this.state));
-    };
+  };
 }
 
 const globalState = GlobalStateManager.getInstance();
-
-export default globalState
+export default globalState;

@@ -3,6 +3,14 @@
     border-radius: 0.8rem;
     background-color: #F8F9FF;
     margin-top: 3rem;
+    padding-bottom: 0;
+    border:1px solid transparent;
+}
+
+.cont{
+    height: 100%;
+    position: relative;
+    padding-bottom: 0;
 }
 
 .total_container{
@@ -11,17 +19,19 @@
     padding: 2rem 5rem;
     color: #9699AA;
     font-size: 1.5rem;
+
 }
 
 .buttons{
     display: flex;
     justify-content: space-between;
-    position: fixed;
+    position: absolute;
     left: -2rem;
     right: -2rem;
     background: #fff;
-    padding: 2rem;
-    top: 100%;
+    padding: 2.6rem;
+    top: 96.5%;
+    align-items: center;
 }
 
 .total_cost{
@@ -37,6 +47,6 @@
         left: 10rem;
         right: 10rem;
         top: unset;
-        bottom: 0;
+        bottom: 3px;
     }
 }

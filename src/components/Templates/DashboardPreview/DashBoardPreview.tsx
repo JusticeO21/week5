@@ -1,6 +1,8 @@
 import styles from "./DashBoardPreview.module.css"
 import SideNav from "../../Organisms/SideNav/SideNav";
 import { Outlet } from "react-router-dom";
+import { createContext, useState } from "react";
+import globalState from "../../../AppState/GlobalState";
 
 const data = [
   {
@@ -25,16 +27,34 @@ const data = [
   },
 ];
 
-type DashBoardPreviewprops = {
-    
-}
+export type AppStateContextType = {
+  stage: string | number;
+  updateStage: (stage: number) => void;
+};
 
-function DashBoardPreview({ }: DashBoardPreviewprops) {
+export const AppStateContext = createContext<AppStateContextType | undefined>(
+  undefined
+);
+
+function DashBoardPreview() {
+  const [stage, setStage] = useState(globalState.getState("stage") || 0);
+
+  function updateStage(stage:number) {
+    setStage(stage)
+  }
+
   return (
-    <div className={styles.container}>
-      <SideNav data={data} />
-      <section className={styles.formsContainer}><Outlet/></section>
-    </div>
+    <AppStateContext.Provider value={{ stage, updateStage }}>
+      <div className={styles.container}>
+        <SideNav data={data} />
+
+        <section className={styles.formsContainer}>
+          <div className={styles.formContent}>
+            <Outlet />
+          </div>
+        </section>
+      </div>
+    </AppStateContext.Provider>
   );
 }
 

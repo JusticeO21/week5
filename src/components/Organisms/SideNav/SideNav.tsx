@@ -1,8 +1,8 @@
 import styles from "./SideNav.module.css";
 import Stage from "../../Molecules/Stage/Stage";
-import { useState } from "react";
+import useAppContext from "../../../Hooks/useAppContext";
 import useCustomNavigate from "../../../Hooks/UseNavigate";
-import globalState from "../../../AppState/GlobalState";
+import globalState from "../../../AppState/GlobalState"
 
 interface Stage {
   stage: number;
@@ -10,15 +10,17 @@ interface Stage {
   stageUrl: string;
 }
 
-type SideNaveProps = {
+type SideNavProps = {
   data: Array<Stage>
 }
 
-function SideNav({ data }: SideNaveProps) {
+function SideNav({ data }: SideNavProps) {
   const {goTo}  = useCustomNavigate()
-  const [currentStage, setCurrentSatge] = useState<number>(globalState.getState("stage") || 0);
+  const { stage: currentStage, updateStage: setCurrentSatge } =
+    useAppContext();
 
-function listenToStageClick(stageUr: string, currentStage:number): void {
+  function listenToStageClick(stageUr: string, currentStage: number): void {
+    if (window.innerWidth < 1000) return;
   goTo(stageUr);
   setCurrentSatge(currentStage);
   globalState.setState("stage", currentStage)
@@ -29,7 +31,7 @@ function listenToStageClick(stageUr: string, currentStage:number): void {
     <div className={styles.container}>
       <nav>
         {data.map((data,index) => {
-          return <Stage stage={data.stage} label={data.label} key={`${data.label}_${index}`} current={currentStage === index && true} onClick={()=>{listenToStageClick(data.stageUrl, index)}}/>;
+          return <Stage stage={data.stage} label={data.label} key={`${data.label}_${index}`} current={Number(currentStage) === index && true} onClick={()=>{listenToStageClick(data.stageUrl, index)}}/>;
         })}
       </nav>
     </div>

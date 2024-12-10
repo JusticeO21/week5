@@ -8,10 +8,13 @@
     font-weight: 600;
 }
 
+.container button{
+    display: none;
+}
+
 .container .plan_cost{
     color: #022959;
     font-size: 1.3rem;
-     /* font-weight: 400; */
 }
 
 .main_plan .plan h5, .main_plan .plan_cost{
