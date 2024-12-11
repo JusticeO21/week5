@@ -3,6 +3,8 @@ import Stage from "../../Molecules/Stage/Stage";
 import useAppContext from "../../../Hooks/useAppContext";
 import useCustomNavigate from "../../../Hooks/UseNavigate";
 import globalState from "../../../AppState/GlobalState"
+import { useAppSelector, useAppDispatch } from "../../../Hooks/useRedux"
+import { updateStep } from "../../../Redux/sidebarSlice";
 
 interface Stage {
   stage: number;
@@ -18,10 +20,12 @@ function SideNav({ data }: SideNavProps) {
   const {goTo}  = useCustomNavigate()
   const { stage: currentStage, updateStage: setCurrentSatge } =
     useAppContext();
+  const step = useAppSelector((state) => state.sidebar.step);
+  const dispatch = useAppDispatch();
 
-  function listenToStageClick(stageUr: string, currentStage: number): void {
+  function listenToStageClick(stageUrl: string, currentStage: number): void {
     if (window.innerWidth < 1000) return;
-  goTo(stageUr);
+  goTo(stageUrl);
   setCurrentSatge(currentStage);
   globalState.setState("stage", currentStage)
   globalState.storeData();
