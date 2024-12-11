@@ -11,11 +11,12 @@
     "test": "jest --watchAll",
     "cov": "jest --coverage --collectCoverageFrom='src/**/*.{ts,tsx}'"
   },
-
-   "jest": {
+  "jest": {
     "preset": "ts-jest",
     "testEnvironment": "jsdom",
-    "setupFiles": ["<rootDir>/src/jest.setup.ts"]
+    "setupFiles": [
+      "<rootDir>/src/jest.setup.ts"
+    ]
   },
   "dependencies": {
     "react": "^18.3.1",
