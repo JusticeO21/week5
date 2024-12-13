@@ -1,57 +1,42 @@
 import Header from "../../Atoms/Header/Header";
 import SelectedPlan from '../../Atoms/SelectedPlan/SelectedPlan';
 import styles from './FinishinUp.module.css'
-import globalState from "../../../AppState/GlobalState";
-import { useState, useEffect } from "react";
 import Button from "../../Atoms/Button/Button";
 import useCustomNavigate from "../../../Hooks/UseNavigate";
-import { useAppDispatch } from "../../../Hooks/useRedux";
-import { goBack } from "../../../Redux/sidebarSlice";
-
-
-
-function confirmRequiredFieledAreNotBlank() {
-  if (!globalState.getState("name") || !globalState.getState("email") || !globalState.getState("phone") || !globalState.getState("plan")) return true;
-  return false
-}
+import { useAppDispatch, useAppSelector } from "../../../Hooks/useRedux";
+import { goBack, updateStep } from "../../../Redux/sidebarSlice";
 
 function FinishingUp() {
+  const { total, plan, addOns } = useAppSelector(
+    (state) => state.planAndAddOns
+  );
+
+  const {name, mail, phone} = useAppSelector(state => state.personalInfo)
   const { goToSelectedStep, goTo } = useCustomNavigate()
   const dispatch = useAppDispatch();
-  const [total, setTotal] = useState(0);
-  const plan = globalState.getState("plan");
-  const addOns = globalState.getState("addOns");
   
   function handleConfirmButtonClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();
-    if (confirmRequiredFieledAreNotBlank()) {
-    } else {
-      goTo("/register/thank-you");
+    if (!plan) {
+      dispatch(updateStep({ step: 2 }))
+      goToSelectedStep();
+      return;
     }
+    
+    if (!name || !mail || !phone) {
+      dispatch(updateStep({ step:  1}))
+      goToSelectedStep()
+      return;
+    }
+     return  goTo("/register/thank-you");
   }
   
     function handleBackButtonClick(e:React.MouseEvent<HTMLButtonElement, MouseEvent>) {
       e.preventDefault();
       dispatch(goBack());
-      goToSelectedStep();
-      
+      goToSelectedStep(); 
   }
   
-    useEffect(() => {
-      let newTotal = 0;
-
-      if (plan) {
-        newTotal += plan["cost"];
-      }
-
-      if (addOns) {
-        Object.values(addOns).forEach((value) => {
-          newTotal += Number(value);
-        });
-      }
-
-      setTotal(newTotal);
-    }, [plan, addOns]);
 
   return (
     <>
