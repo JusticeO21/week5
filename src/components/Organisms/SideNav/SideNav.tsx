@@ -1,9 +1,7 @@
 import styles from "./SideNav.module.css";
 import Stage from "../../Molecules/Stage/Stage";
-import useAppContext from "../../../Hooks/useAppContext";
 import useCustomNavigate from "../../../Hooks/UseNavigate";
-import globalState from "../../../AppState/GlobalState"
-import { useAppSelector, useAppDispatch } from "../../../Hooks/useRedux"
+import { useAppSelector, useAppDispatch } from "../../../Hooks/useRedux";
 import { updateStep } from "../../../Redux/sidebarSlice";
 
 interface Stage {
@@ -18,24 +16,20 @@ type SideNavProps = {
 
 function SideNav({ data }: SideNavProps) {
   const {goTo}  = useCustomNavigate()
-  const { stage: currentStage, updateStage: setCurrentSatge } =
-    useAppContext();
   const step = useAppSelector((state) => state.sidebar.step);
   const dispatch = useAppDispatch();
 
   function listenToStageClick(stageUrl: string, currentStage: number): void {
     if (window.innerWidth < 1000) return;
-  goTo(stageUrl);
-  setCurrentSatge(currentStage);
-  globalState.setState("stage", currentStage)
-  globalState.storeData();
+    goTo(stageUrl);
+    dispatch(updateStep({ step: currentStage }));
 }
 
   return (
     <div className={styles.container}>
       <nav>
         {data.map((data,index) => {
-          return <Stage stage={data.stage} label={data.label} key={`${data.label}_${index}`} current={Number(currentStage) === index && true} onClick={()=>{listenToStageClick(data.stageUrl, index)}}/>;
+          return <Stage stage={data.stage} label={data.label} key={`${data.label}_${index}`} current={step === (index + 1) && true} onClick={()=>{listenToStageClick(data.stageUrl, index + 1)}}/>;
         })}
       </nav>
     </div>

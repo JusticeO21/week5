@@ -5,7 +5,10 @@ import globalState from "../../../AppState/GlobalState";
 import { useState, useEffect } from "react";
 import Button from "../../Atoms/Button/Button";
 import useCustomNavigate from "../../../Hooks/UseNavigate";
-import useAppContext from "../../../Hooks/useAppContext";
+import { useAppDispatch } from "../../../Hooks/useRedux";
+import { goBack } from "../../../Redux/sidebarSlice";
+
+
 
 function confirmRequiredFieledAreNotBlank() {
   if (!globalState.getState("name") || !globalState.getState("email") || !globalState.getState("phone") || !globalState.getState("plan")) return true;
@@ -13,11 +16,26 @@ function confirmRequiredFieledAreNotBlank() {
 }
 
 function FinishingUp() {
-  const {goTo} = useCustomNavigate()
+  const { goToSelectedStep, goTo } = useCustomNavigate()
+  const dispatch = useAppDispatch();
   const [total, setTotal] = useState(0);
   const plan = globalState.getState("plan");
   const addOns = globalState.getState("addOns");
-  const { updateStage} = useAppContext();
+  
+  function handleConfirmButtonClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    e.preventDefault();
+    if (confirmRequiredFieledAreNotBlank()) {
+    } else {
+      goTo("/register/thank-you");
+    }
+  }
+  
+    function handleBackButtonClick(e:React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+      e.preventDefault();
+      dispatch(goBack());
+      goToSelectedStep();
+      
+  }
   
     useEffect(() => {
       let newTotal = 0;
@@ -37,65 +55,45 @@ function FinishingUp() {
 
   return (
     <>
+      <Header
+        stageHeader="Finishing up"
+        explainHeader="Double-check everything looks OK before confirming"
+      />
+      <div className={styles.selected_plan_container}>
+        {plan && (
+          <SelectedPlan
+            plan={`${plan["name"]}`}
+            planCost={`$ ${plan["cost"]}/mo`}
+            main_plan="main_plan"
+          />
+        )}
 
-        <Header
-          stageHeader="Finishing up"
-          explainHeader="Double-check everything looks OK before confirming"
+        {addOns &&
+          Object.entries(addOns).map(([key, value]) => {
+            return (
+              <SelectedPlan
+                plan={`${key}`}
+                planCost={`${value}/mo`}
+                key={key}
+              />
+            );
+          })}
+      </div>
+
+      <span className={styles.total_container}>
+        <p>Total (month)</p>
+        <p className={styles.total_cost}>${total}</p>
+      </span>
+
+      <span className={styles.buttons}>
+        <Button text="go back" onClick={(e) => handleBackButtonClick(e)} />
+
+        <Button
+          positionButton="right"
+          text="confirm"
+          onClick={(e) => handleConfirmButtonClick(e)}
         />
-        <div className={styles.selected_plan_container}>
-          {plan && (
-            <SelectedPlan
-              plan={`${plan["name"]}`}
-              planCost={`$ ${plan["cost"]}/mo`}
-              main_plan="main_plan"
-            />
-          )}
-
-          {addOns &&
-            Object.entries(addOns).map(([key, value]) => {
-              return (
-                <SelectedPlan
-                  plan={`${key}`}
-                  planCost={`${value}/mo`}
-                  key={key}
-                />
-              );
-            })}
-        </div>
-
-        <span className={styles.total_container}>
-          <p>Total (month)</p>
-          <p className={styles.total_cost}>${total}</p>
-        </span>
-
-        <span className={styles.buttons}>
-          <Button
-            text="go back"
-            onClick={(e) => {
-              e.preventDefault();
-              goTo("/register/add-ons");
-              updateStage(2);
-              globalState.setState("stage", 2);
-              globalState.storeData();
-            }}
-          />
-
-          <Button
-            positionButton="right"
-            text="confirm"
-            onClick={(e) => {
-              e.preventDefault();
-              if (confirmRequiredFieledAreNotBlank()) {
-                goTo("/register");
-                updateStage(0);
-                globalState.setState("stage", 0);
-                globalState.storeData();
-              } else {
-                goTo("/register/thank-you");
-              }
-            }}
-          />
-        </span>
+      </span>
     </>
   );
 }

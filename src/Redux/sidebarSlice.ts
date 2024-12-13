@@ -1,6 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { PayloadAction } from "@reduxjs/toolkit";
-
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface SidebarState{
     step: number;
@@ -26,7 +24,7 @@ export const navbarSlice = createSlice({
             }
         },
 
-        updateStep: (state, action:PayloadAction<SidebarState>) => {
+        updateStep: (state, action:PayloadAction<Pick<SidebarState, 'step'>>) => {
             state.step = action.payload.step;
         }
     })

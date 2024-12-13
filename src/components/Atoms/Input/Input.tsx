@@ -33,7 +33,7 @@ function Input({
   checked,
   active,
   cost
-}:InputProps) {
+}: InputProps) {
   return (
     <div
       className={`${styles.input_container} ${styles[`${active}`]} ${

@@ -1,8 +1,9 @@
-import styles from "./Home.module.css"
-import useCustomNavigate from '../../../Hooks/UseNavigate'
+import styles from "./Home.module.css";
+import useCustomNavigate from '../../../Hooks/UseNavigate';
 
 function Home() {
-    const {goTo}  = useCustomNavigate()
+  const { goTo } = useCustomNavigate();
+  
   return (
     <section className={styles.container}>
       <div>

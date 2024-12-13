@@ -1,9 +1,11 @@
 import { useState } from 'react';
-import globalState from '../AppState/GlobalState';
+import { useAppDispatch } from './useRedux';
+import { updatePersonalInfo } from '../Redux/personalInfoSlice';
 
 function useInput(initialValue: string, validations?: any) {
   const [value, setValue] = useState(initialValue);
   const [errors, setErrors] = useState<string[]>([]);
+  const dispatch = useAppDispatch();
 
   const validate = (value: string) => {
     const newErrors: string[] = [];
@@ -19,9 +21,8 @@ function useInput(initialValue: string, validations?: any) {
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = event.target.value;
-    globalState.setState(`${event.target.name}`, newValue)
-    globalState.storeData();
+    const newValue: string = event.target.value;
+    dispatch(updatePersonalInfo({[event.target.name]:newValue}));
     setValue(newValue);
     validate(newValue); // validate each time the input changes
   };

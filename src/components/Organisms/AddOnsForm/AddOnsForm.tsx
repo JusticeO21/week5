@@ -6,11 +6,10 @@ import Header from '../../Atoms/Header/Header';
 import { useState } from 'react';
 import globalState from '../../../AppState/GlobalState';
 import useCustomNavigate from '../../../Hooks/UseNavigate';
-import useAppContext from "../../../Hooks/useAppContext";
+
 
 function AddOnsForm() {
   const [selectedCheckbox, setSelectedCheckbox] = useState<{ [key: string]: string }>({});
-  const { updateStage } = useAppContext();
   const addOns = globalState.getState("addOns");
   const month = false;
   const {goTo} = useCustomNavigate()
@@ -82,7 +81,6 @@ function AddOnsForm() {
           onClick={(e) => {
             e.preventDefault();
             goTo("/register/select-plan");
-            updateStage(1)
             globalState.setState("stage", 1);
             globalState.storeData();
           }}
@@ -94,7 +92,6 @@ function AddOnsForm() {
           onClick={(e) => {
             e.preventDefault();
             goTo("/register/finishing-up");
-            updateStage(3)
             globalState.setState("stage", 3)
             globalState.storeData();
           }}

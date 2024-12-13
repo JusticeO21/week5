@@ -4,28 +4,28 @@ import Header from "../../Atoms/Header/Header";
 import Input from "../../Atoms/Input/Input";
 import Button from "../../Atoms/Button/Button";
 import useInput from "../../../Hooks/UseInput";
-import globalState from "../../../AppState/GlobalState";
 import useCustomNavigate from "../../../Hooks/UseNavigate";
-import useAppContext from "../../../Hooks/useAppContext";
-
+import { useAppDispatch, useAppSelector } from "../../../Hooks/useRedux";
+import { goToNextStep } from "../../../Redux/sidebarSlice";
 import { minLength, emailPattern, numberPattern, required  } from "./utils";
-
 function PersonalInfoForm() {
-  const { goTo } = useCustomNavigate();
-  const { updateStage } = useAppContext();
+  const { goToSelectedStep } = useCustomNavigate();
+  const dispatch = useAppDispatch();
+  const { name, mail, phone } = useAppSelector(state => state.personalInfo);
+
   const {
     value: nameValue,
     handleChange: handleNameChange,
     errors: nameErrors,
     setFieldReqiredError: setNameFieldRequired,
-  } = useInput(globalState.getState("name") || "", [required, minLength(3)]);
+  } = useInput(name, [required, minLength(3)]);
 
   const {
     value: emailValue,
     handleChange: handleEmailChange,
     errors: emailErrors,
     setFieldReqiredError: setEmailFieldRequired,
-  } = useInput(globalState.getState("email") || "", [
+  } = useInput(mail, [
     emailPattern,
     required,
     minLength(3),
@@ -36,7 +36,7 @@ function PersonalInfoForm() {
     handleChange: handlePhoneChange,
     errors: phoneErrors,
     setFieldReqiredError: setPhoneFieldRequired,
-  } = useInput(globalState.getState("phone") || "", [
+  } = useInput(phone, [
     numberPattern,
     required,
     minLength(3),
@@ -55,10 +55,8 @@ function PersonalInfoForm() {
       phoneErrors[0]
     )
       return;
-    goTo("/register/select-plan");
-    updateStage(1);
-    globalState.setState("stage", 1);
-    globalState.storeData();
+    dispatch(goToNextStep());
+    goToSelectedStep()
   }
 
   return (
@@ -79,7 +77,7 @@ function PersonalInfoForm() {
         />
         <Input
           type="email"
-          name="email"
+          name="mail"
           label="email address"
           onChange={handleEmailChange}
           value={emailValue}
