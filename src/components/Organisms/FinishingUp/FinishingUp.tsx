@@ -4,10 +4,12 @@ import styles from './FinishinUp.module.css'
 import Button from "../../Atoms/Button/Button";
 import useCustomNavigate from "../../../Hooks/UseNavigate";
 import { useAppDispatch, useAppSelector } from "../../../Hooks/useRedux";
-import { goBack, updateStep } from "../../../Redux/sidebarSlice";
+import { goBack, updateStep} from "../../../Redux/sidebarSlice";
+import { reset as resetPlan } from "../../../Redux/PlanAndAddOnSlice";
+import { reset as resetPersonalInfo } from "../../../Redux/personalInfoSlice";
 
 function FinishingUp() {
-  const { total, plan, addOns } = useAppSelector(
+  const { total, plan, addOns, isAYearPlan } = useAppSelector(
     (state) => state.planAndAddOns
   );
 
@@ -28,16 +30,19 @@ function FinishingUp() {
       goToSelectedStep()
       return;
     }
+
+    
+    dispatch(resetPlan())
+    dispatch(resetPersonalInfo());
      return  goTo("/register/thank-you");
   }
-  
+
     function handleBackButtonClick(e:React.MouseEvent<HTMLButtonElement, MouseEvent>) {
       e.preventDefault();
       dispatch(goBack());
       goToSelectedStep(); 
   }
   
-
   return (
     <>
       <Header
@@ -48,7 +53,7 @@ function FinishingUp() {
         {plan && (
           <SelectedPlan
             plan={`${plan["name"]}`}
-            planCost={`$ ${plan["cost"]}/mo`}
+            planCost={`$ ${plan["cost"]}/${isAYearPlan?"yr":"mo"}`}
             main_plan="main_plan"
           />
         )}
@@ -58,7 +63,7 @@ function FinishingUp() {
             return (
               <SelectedPlan
                 plan={`${key}`}
-                planCost={`${value}/mo`}
+                planCost={`${value}/${isAYearPlan?"yr":"mo"}`}
                 key={key}
               />
             );
@@ -66,7 +71,7 @@ function FinishingUp() {
       </div>
 
       <span className={styles.total_container}>
-        <p>Total (month)</p>
+        <p>Total ({isAYearPlan? "yearly" : "monthly"})</p>
         <p className={styles.total_cost}>${total}</p>
       </span>
 

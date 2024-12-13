@@ -31,11 +31,16 @@ function useInput(initialValue: string, validations?: any) {
     setErrors(["This field is required"])
   }
 
+  const resetInput = () => {
+    setValue("")
+  }
+
   return {
     value,
     errors,
     handleChange,
-    setFieldReqiredError
+    setFieldReqiredError,
+    resetInput
   };
 }
 export default useInput;

@@ -26,7 +26,9 @@ const planAndAddOnsSlice = createSlice({
     initialState,
     reducers: ({
         updatePlan: (state, action: PayloadAction<{name: string,
-      cost: number}>) => {
+            cost: number
+        }>) => {
+            state.total -= state.plan?.cost || 0
             state.plan = action.payload 
             state.total += action.payload.cost
         },
@@ -47,16 +49,17 @@ const planAndAddOnsSlice = createSlice({
 
         updatePlanDuration: (state) => {
             state.isAYearPlan = !state.isAYearPlan
-        }
-                    
-    })
-    
+        },
+
+        reset: (state) => {
+            return {
+                ...initialState,
+                isAYearPlan:state.isAYearPlan
+                
+        }}               
+    })  
 })
 
 
-const { updatePlan, updateAddOns, removeAddOn, updatePlanDuration } = planAndAddOnsSlice.actions;
-export {
-    updateAddOns, updatePlan, removeAddOn, updatePlanDuration
-}
-
+export const { updatePlan, updateAddOns, removeAddOn, updatePlanDuration, reset } = planAndAddOnsSlice.actions;
 export default planAndAddOnsSlice.reducer;

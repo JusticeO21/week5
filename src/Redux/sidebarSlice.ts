@@ -26,9 +26,12 @@ export const navbarSlice = createSlice({
 
         updateStep: (state, action:PayloadAction<Pick<SidebarState, 'step'>>) => {
             state.step = action.payload.step;
-        }
+        },
+
+        reset:()=> {return initialState}
+
     })
 })
 
-export const { goToNextStep, goBack, updateStep } = navbarSlice.actions;
+export const { goToNextStep, goBack, updateStep, reset } = navbarSlice.actions;
 export default navbarSlice.reducer;

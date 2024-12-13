@@ -6,7 +6,8 @@ import useCustomNavigate from '../../../Hooks/UseNavigate';
 import ThemeSwitch from '../../Molecules/ThemeSwitch/ThemeSwitch';
 import { useAppDispatch, useAppSelector } from "../../../Hooks/useRedux";
 import { goToNextStep, goBack } from "../../../Redux/sidebarSlice";
-import { updatePlan, updatePlanDuration } from '../../../Redux/PlanAndAddOnSlice';
+import { updatePlan, updatePlanDuration, reset as resetPlan } from '../../../Redux/PlanAndAddOnSlice';
+import Reset from '../../Atoms/Reset/Reset';
 
 function PlanForm() {
   const { goToSelectedStep } = useCustomNavigate();
@@ -22,8 +23,13 @@ function PlanForm() {
     dispatch(updatePlan(storedplan))
   }
 
-  function handleToggleTheme () {
+  function handleReset() {
+        dispatch(resetPlan());
+  }
+
+  function handleToggleTheme() {
     dispatch(updatePlanDuration())
+    dispatch(resetPlan());
   };
 
   function handleNextButtonClick(e:React.MouseEvent<HTMLButtonElement, MouseEvent>) {
@@ -40,6 +46,8 @@ function PlanForm() {
   
   return (
     <>
+      
+      <Reset onClick={handleReset}/>
       <Header
         stageHeader="Select your plan"
         explainHeader="You have the option of monthly or yearly billing."

@@ -27,9 +27,11 @@ const personalInfoSlice = createSlice({
             }
             
         },
+
+        reset: () => {return initialState}
     })
 });
 
-export const { updatePersonalInfo } = personalInfoSlice.actions;
+export const { updatePersonalInfo, reset } = personalInfoSlice.actions;
 
 export default personalInfoSlice.reducer

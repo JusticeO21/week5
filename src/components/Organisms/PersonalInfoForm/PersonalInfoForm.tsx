@@ -7,7 +7,9 @@ import useInput from "../../../Hooks/UseInput";
 import useCustomNavigate from "../../../Hooks/UseNavigate";
 import { useAppDispatch, useAppSelector } from "../../../Hooks/useRedux";
 import { goToNextStep } from "../../../Redux/sidebarSlice";
-import { minLength, emailPattern, numberPattern, required  } from "./utils";
+import { minLength, emailPattern, numberPattern, required } from "./utils";
+import { reset as resetPersonalInfo } from "../../../Redux/personalInfoSlice";
+import Reset from "../../Atoms/Reset/Reset";
 function PersonalInfoForm() {
   const { goToSelectedStep } = useCustomNavigate();
   const dispatch = useAppDispatch();
@@ -17,6 +19,7 @@ function PersonalInfoForm() {
     value: nameValue,
     handleChange: handleNameChange,
     errors: nameErrors,
+    resetInput: resetName,
     setFieldReqiredError: setNameFieldRequired,
   } = useInput(name, [required, minLength(3)]);
 
@@ -24,6 +27,7 @@ function PersonalInfoForm() {
     value: emailValue,
     handleChange: handleEmailChange,
     errors: emailErrors,
+    resetInput:resetMail,
     setFieldReqiredError: setEmailFieldRequired,
   } = useInput(mail, [
     emailPattern,
@@ -35,12 +39,16 @@ function PersonalInfoForm() {
     value: phoneValue,
     handleChange: handlePhoneChange,
     errors: phoneErrors,
+    resetInput: resetPhone,
     setFieldReqiredError: setPhoneFieldRequired,
-  } = useInput(phone, [
-    numberPattern,
-    required,
-    minLength(3),
-  ]);
+  } = useInput(phone, [numberPattern, required, minLength(3)]);
+
+  function handleReset() {
+    dispatch(resetPersonalInfo())
+    resetMail();
+    resetName()
+    resetPhone()
+  }
 
   function handleSubmit() {
     !nameValue && setNameFieldRequired();
@@ -65,6 +73,7 @@ function PersonalInfoForm() {
         stageHeader="Personal info"
         explainHeader="Pease provide your name, email address and phone number"
       />
+      <Reset onClick={handleReset}/>
       <FormPreview>
         <Input
           type="text"

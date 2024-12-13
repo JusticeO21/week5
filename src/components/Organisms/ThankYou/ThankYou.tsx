@@ -2,15 +2,17 @@ import styles from './ThankYou.module.css';
 import Icon from '../../Atoms/Icon/Icon';
 import { useEffect } from 'react';
 import useCustomNavigate from '../../../Hooks/UseNavigate';
-import globalState from '../../../AppState/GlobalState';
+import { reset as resetStep } from '../../../Redux/sidebarSlice';
+import { useAppDispatch } from '../../../Hooks/useRedux';
 
 function ThankYou() {
   const { goTo } = useCustomNavigate();
+  const dispatch = useAppDispatch()
   useEffect(() => {
     setTimeout(() => {
       goTo("/")
-      globalState.clearState()
-    }, 5000)
+      dispatch(resetStep())   
+    }, 3000)
   }, []);
   return (
     <div className={styles.container}>
