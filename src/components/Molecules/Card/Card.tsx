@@ -1,19 +1,31 @@
-import styles from "./Card.module.css"
-import Icon from "../../Atoms/Icon/Icon"
+import styles from "./Card.module.css";
+import Icon from "../../Atoms/Icon/Icon";
 
 type CardProps = {
-    iconSrc: string;
-    planName: string;
-    isAYearPlan?: boolean;
-    plan: string;
+  iconSrc: string;
+  planName: string;
+  isAYearPlan?: boolean;
+  plan: string;
   selected?: string;
   onClick: () => void;
-}
-function Card({iconSrc, planName, isAYearPlan, plan, selected, onClick}:CardProps) {
+};
+
+function Card({
+  iconSrc,
+  planName,
+  isAYearPlan = false,
+  plan,
+  selected = "",
+  onClick,
+}: CardProps): JSX.Element {
+  const cardClasses = `${styles.card_container} ${
+    selected ? styles[selected] : ""
+  }`;
+
   return (
-    <div className={`${styles.card_container} ${styles[`${selected}`]}`} onClick = {onClick}>
+    <div className={cardClasses} onClick={onClick}>
       <span className={styles.card_content}>
-              <Icon src={iconSrc} alt={`pl_${planName}`} />
+        <Icon src={iconSrc} alt={`pl_${planName}`} />
         <span className={styles.description}>
           <article>
             <h4>{planName}</h4>
@@ -26,4 +38,4 @@ function Card({iconSrc, planName, isAYearPlan, plan, selected, onClick}:CardProp
   );
 }
 
-export default Card
+export default Card;

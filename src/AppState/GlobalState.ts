@@ -1,6 +1,5 @@
 export class GlobalStateManager {
   private static instance: GlobalStateManager;
-
   private state: Record<string, any>;
 
   private constructor() {
@@ -19,12 +18,16 @@ export class GlobalStateManager {
     return GlobalStateManager.instance;
   }
 
-  public getState(key: string): any {
+  public getState(key: string) {
     return this.state[key];
   }
 
   public setState(key: string, value: any): void {
     this.state[key] = value;
+  }
+
+  public getAllStates() {
+    return this.state
   }
 
   public clearState(): void {

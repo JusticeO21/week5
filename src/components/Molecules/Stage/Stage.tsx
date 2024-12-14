@@ -1,6 +1,6 @@
-import StageNumber from '../../Atoms/StageNumber/StageNumber';
-import styles from './Stage.module.css';
-import StageLabel from '../../Atoms/StageLabel/StageLabel';
+import StageNumber from "../../Atoms/StageNumber/StageNumber";
+import styles from "./Stage.module.css";
+import StageLabel from "../../Atoms/StageLabel/StageLabel";
 
 type StageProps = {
   stage: number;
@@ -9,13 +9,13 @@ type StageProps = {
   onClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 };
 
-function Stage({stage, label, current, onClick}:StageProps) {
+function Stage({ stage, label, current, onClick }: StageProps): JSX.Element {
   return (
-      <div className={styles.container}>
+    <div className={styles.container}>
       <StageNumber stage={stage} onClick={onClick} current={current} />
-          <StageLabel stage={stage} label={label} />     
+      <StageLabel stage={stage} label={label} />
     </div>
-  )
+  );
 }
 
-export default Stage
+export default Stage;

@@ -31,21 +31,27 @@ function Input({
   maxLength,
   pattern,
   checked,
-  active,
-  cost
-}:InputProps) {
+  active = "",
+  cost = "",
+}: InputProps): JSX.Element {
+  const inputClasses = `${styles.input_field} ${
+    error ? styles.error_field : ""
+    }`;
+  
+  const containerClasses = `${styles.input_container} ${
+    active ? styles[active] : ""
+  } ${error ? styles.input_error : ""} ${styles[type]}`;
+
   return (
-    <div
-      className={`${styles.input_container} ${styles[`${active}`]} ${
-        error ? `${styles.input_error}` : ""
-      } ${styles[`${type}`]}`}
-    >
-      <span>
-        {label && <label htmlFor={name}>{label}</label>}
-        <p className={styles.checkbox_description}>
-          Access to multiplayer game
-        </p>
-      </span>
+    <div className={containerClasses}>
+      {label && (
+        <span>
+          <label htmlFor={name}>{label}</label>
+          <p className={styles.checkbox_description}>
+            Access to multiplayer game
+          </p>
+        </span>
+      )}
 
       <input
         type={type}
@@ -59,16 +65,14 @@ function Input({
         pattern={pattern}
         checked={checked}
         id={name}
-        className={`${styles.input_field} ${
-          error ? `${styles.error_field}` : ""
-        }`}
+        className={inputClasses}
       />
 
-      <p className={styles.add_ons_price}>+${cost}</p>
+      {cost && <p className={styles.add_ons_price}>+${cost}</p>}
 
       {error && <span className={styles.error_message}>{error}</span>}
     </div>
   );
-};
+}
 
 export default Input;

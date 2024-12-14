@@ -1,33 +1,40 @@
-import styles from "./AddOnsForm.module.css"
-import FormPreview from '../../Atoms/FormPreview/FormPreview';
-import Input from '../../Atoms/Input/Input';
-import Button from '../../Atoms/Button/Button';
-import Header from '../../Atoms/Header/Header';
-import { useState } from 'react';
-import globalState from '../../../AppState/GlobalState';
-import useCustomNavigate from '../../../Hooks/UseNavigate';
+import styles from "./AddOnsForm.module.css";
+import FormPreview from "../../Atoms/FormPreview/FormPreview";
+import Input from "../../Atoms/Input/Input";
+import Button from "../../Atoms/Button/Button";
+import Header from "../../Atoms/Header/Header";
+import { useState } from "react";
+import globalState from "../../../AppState/GlobalState";
+import useCustomNavigate from "../../../Hooks/UseNavigate";
 import useAppContext from "../../../Hooks/useAppContext";
 
 function AddOnsForm() {
-  const [selectedCheckbox, setSelectedCheckbox] = useState<{ [key: string]: string }>({});
+  const [selectedCheckbox, setSelectedCheckbox] = useState<{
+    [key: string]: string;
+  }>({});
   const { updateStage } = useAppContext();
   const addOns = globalState.getState("addOns");
-  const month = false;
-  const {goTo} = useCustomNavigate()
+  const month = false; // Hardcoded as per original code, could be dynamic if needed
+  const { goTo } = useCustomNavigate();
 
-  function handleCheckboxChange(e:React.ChangeEvent<HTMLInputElement> ,checkboxName:string, cost:number) {
-    const addOns = globalState.getState("addOns") || {};
+  const handleCheckboxChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    checkboxName: string,
+    cost: number
+  ) => {
+    const updatedAddOns = { ...globalState.getState("addOns") };
+
     if (e.target.checked) {
       setSelectedCheckbox((prev) => ({ ...prev, [checkboxName]: "checked" }));
-      addOns[checkboxName] = cost;
+      updatedAddOns[checkboxName] = cost;
     } else {
       setSelectedCheckbox((prev) => ({ ...prev, [checkboxName]: "" }));
-      delete addOns[checkboxName]
+      delete updatedAddOns[checkboxName];
     }
-    globalState.setState("addOns", addOns);
-    globalState.storeData();
-  }
 
+    globalState.setState("addOns", updatedAddOns);
+    globalState.storeData();
+  };
 
   return (
     <>
@@ -35,45 +42,38 @@ function AddOnsForm() {
         stageHeader="Pick add-ons"
         explainHeader="Add-ons help enhance your gaming experience"
       />
-      <FormPreview>
-        <Input
-          type="checkbox"
-          onChange={(e) => {
-            handleCheckboxChange(e, "online_service", 1);
-          }}
-          label="online service"
-          value=""
-          name="online_service"
-          active={selectedCheckbox["online_service"]}
-          cost={!month ? "10yr" : "1/mo"}
-          checked={addOns?.["online_service"] ? true : false}
-        />
-        
-        <Input
-          type="checkbox"
-          onChange={(e) => {
-            handleCheckboxChange(e, "larger_storage", !month ? 30 : 3);
-          }}
-          label="larger storage"
-          value=""
-          name="larger_storage"
-          active={selectedCheckbox["larger_storage"]}
-          cost={!month ? "30yr" : "3/mo"}
-          checked={addOns?.["larger_storage"] ? true : false}
-        />
 
-        <Input
-          type="checkbox"
-          onChange={(e) => {
-            handleCheckboxChange(e, "customizable_profile", !month ? 10 : 1);
-          }}
-          label="customizable profile"
-          value=""
-          name="customizable_profile"
-          active={selectedCheckbox["customizable_profile"]}
-          cost={!month ? "10yr" : "1/mo"}
-          checked={addOns?.["customizable_profile"] ? true : false}
-        />
+      <FormPreview>
+        {["online_service", "larger_storage", "customizable_profile"].map(
+          (addon) => {
+            const cost =
+              addon === "online_service"
+                ? !month
+                  ? 10
+                  : 1
+                : addon === "larger_storage"
+                ? !month
+                  ? 30
+                  : 3
+                : !month
+                ? 10
+                : 1;
+
+            return (
+              <Input
+                key={addon}
+                type="checkbox"
+                onChange={(e) => handleCheckboxChange(e, addon, cost)}
+                label={addon.replace("_", " ")}
+                value=""
+                name={addon}
+                active={selectedCheckbox[addon]}
+                cost={!month ? `${cost}yr` : `${cost}/mo`}
+                checked={addOns?.[addon] ? true : false}
+              />
+            );
+          }
+        )}
       </FormPreview>
 
       <span className={styles.buttons}>
@@ -82,7 +82,7 @@ function AddOnsForm() {
           onClick={(e) => {
             e.preventDefault();
             goTo("/register/select-plan");
-            updateStage(1)
+            updateStage(1);
             globalState.setState("stage", 1);
             globalState.storeData();
           }}
@@ -94,8 +94,8 @@ function AddOnsForm() {
           onClick={(e) => {
             e.preventDefault();
             goTo("/register/finishing-up");
-            updateStage(3)
-            globalState.setState("stage", 3)
+            updateStage(3);
+            globalState.setState("stage", 3);
             globalState.storeData();
           }}
         />
@@ -104,4 +104,4 @@ function AddOnsForm() {
   );
 }
 
-export default AddOnsForm
+export default AddOnsForm;
