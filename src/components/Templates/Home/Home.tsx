@@ -1,5 +1,5 @@
 import styles from "./Home.module.css";
-import useCustomNavigate from '../../../Hooks/UseNavigate';
+import useCustomNavigate from '../../../Hooks/UseNavigate'
 
 function Home() {
   const { goTo } = useCustomNavigate();
