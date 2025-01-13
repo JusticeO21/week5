@@ -6,19 +6,18 @@
     align-items: center;
 }
 
-
 .container div{
     text-align: center;
 }
 
 .container h1{
-    font-size: 2.5rem;
+    font-size: 16px;
     text-transform: uppercase;
     margin-bottom: 1rem;
 }
 
 .container p {
-    font-size: 1.8rem;
+    font-size: 16px;
 }
 
 .container button{
@@ -29,4 +28,15 @@
     margin-top: 1.2rem;
     background: #022959;
     color: #FFF;
+}
+
+
+@media(min-width:768px){
+    .container h1{
+        font-size: 2.3rem;
+    }
+
+    .container p{
+        font-size: 1.5rem;
+    }
 }
